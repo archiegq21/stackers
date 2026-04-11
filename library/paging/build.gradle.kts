@@ -13,7 +13,7 @@ plugins {
 
 kotlin {
     android {
-        namespace = "com.quibbly.shared"
+        namespace = "com.library.paging"
         compileSdk = libs.versions.android.compileSdk.get().toInt()
         minSdk = libs.versions.android.minSdk.get().toInt()
 
@@ -31,48 +31,28 @@ kotlin {
         iosSimulatorArm64()
     ).forEach { iosTarget ->
         iosTarget.binaries.framework {
-            baseName = "shared"
+            baseName = "paging"
             isStatic = true
         }
         @Suppress("OPT_IN_USAGE")
-        iosTarget.swiftPackageConfig("shared") {
+        iosTarget.swiftPackageConfig("paging") {
             minIos = libs.versions.ios.target.get()
         }
     }
-    
+
     sourceSets {
-        androidMain.dependencies {
-            implementation(libs.ktor.client.android)
-        }
         commonMain.dependencies {
-            implementation(projects.core.designsystem)
-            implementation(projects.core.database)
-            implementation(projects.core.network)
-            implementation(projects.core.user)
-            implementation(projects.feature.home)
+            implementation(libs.compose.runtime)
+            implementation(libs.compose.foundation)
+            implementation(libs.compose.material3)
+            implementation(libs.compose.ui)
+            implementation(libs.compose.components.resources)
+            implementation(libs.compose.components.preview)
 
-            implementation(project.dependencies.platform(libs.koin.bom))
-            implementation(libs.koin.core)
-            implementation(libs.koin.compose)
-
-            implementation(libs.kermit.koin)
-            implementation(libs.kermit)
-
-            implementation(libs.immutable.collections)
-
-            implementation(libs.kotlinx.serialization.core)
-            implementation(libs.kotlinx.serialization.json)
-
-            implementation(libs.navigation3.ui)
-            implementation(libs.navigation3.adaptive)
-            implementation(libs.lifecycle.viewmodel.navigation3)
+            implementation(libs.paging.common)
         }
         commonTest.dependencies {
-            implementation(libs.compose.ui.test)
             implementation(libs.kotlin.test)
-        }
-        iosMain.dependencies {
-            implementation(libs.ktor.client.darwin)
         }
     }
 }
@@ -82,7 +62,7 @@ dependencies {
 }
 
 compose.resources {
-    packageOfResClass = "com.quibbly.shared"
+    packageOfResClass = "com.library.paging"
     generateResClass = always
     publicResClass = false
 }

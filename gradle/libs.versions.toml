@@ -30,6 +30,7 @@ sqlite = "2.6.2"
 immutable-collection = "0.4.0"
 datetime = "0.7.1"
 kermit = "2.1.0"
+paging = "3.4.2"
 
 [libraries]
 # Android
@@ -71,6 +72,8 @@ androidx-sqlite-bundled = { module = "androidx.sqlite:sqlite-bundled", version.r
 androidx-room-runtime = { module = "androidx.room:room-runtime", version.ref = "room" }
 androidx-room-paging = { module = "androidx.room:room-paging", version.ref = "room" }
 androidx-room-compiler = { module = "androidx.room:room-compiler", version.ref = "room" }
+#paging
+paging-common = { module = "androidx.paging:paging-common", version.ref = "paging" }
 # Coroutines
 kotlinx-coroutines-core = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-core", version.ref = "coroutines" }
 kotlinx-coroutines-test = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-test", version.ref = "coroutines" }
@@ -112,3 +115,5 @@ kotlin-multiplatform = { id = "org.jetbrains.kotlin.multiplatform", version.ref 
 serialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "kotlin" }
 spm4kmm = { id = "io.github.frankois944.spmForKmp", version.ref = "spm" }
 buildconfig = { id = "com.codingfeline.buildkonfig", version.ref = "buildkonfig" }
+androidx-room = { id = "androidx.room", version.ref = "room" }
+ksp = { id = "com.google.devtools.ksp", version.ref = "ksp" }

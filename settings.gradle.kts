@@ -28,8 +28,12 @@ includeBuild("build-logic")
 include(
     ":apps:stackers:androidApp",
     ":core:designsystem",
+    ":core:database",
     ":core:network",
+    ":core:user",
     ":feature:home",
     ":feature:api:home",
+    ":library:placeholder",
+    ":library:paging",
     ":shared",
 )

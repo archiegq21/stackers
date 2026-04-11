@@ -3,7 +3,9 @@ package com.quibbly.shared
 import androidx.compose.runtime.Composable
 import co.touchlab.kermit.Logger
 import co.touchlab.kermit.koin.KermitKoinLogger
+import com.core.database.di.databaseModule
 import com.core.network.di.networkModule
+import com.core.user.di.userModule
 import com.feature.home.di.homeModule
 import org.koin.compose.KoinApplication
 import org.koin.core.annotation.KoinExperimentalAPI
@@ -27,6 +29,8 @@ private val declaration: KoinAppDeclaration = {
     logger(KermitKoinLogger(Logger.withTag("koin")))
     modules(
         networkModule,
+        databaseModule,
+        userModule,
         homeModule,
     )
 }
