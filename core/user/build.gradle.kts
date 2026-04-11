@@ -70,5 +70,5 @@ dependencies {
 compose.resources {
     packageOfResClass = "com.core.user"
     generateResClass = always
-    publicResClass = false
+    publicResClass = true
 }

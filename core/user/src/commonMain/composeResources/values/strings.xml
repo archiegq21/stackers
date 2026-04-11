@@ -2,4 +2,6 @@
     <string name="member_since">Member Since</string>
     <string name="reputation">Reputation</string>
     <string name="points">pts</string>
+
+    <string name="search_users">Search users...</string>
 </resources>

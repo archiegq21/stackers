@@ -1,6 +1,7 @@
 package com.quibbly.shared
 
 import androidx.compose.animation.SharedTransitionLayout
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.material3.adaptive.ExperimentalMaterial3AdaptiveApi
@@ -18,6 +19,8 @@ import androidx.navigation3.ui.NavDisplay
 import androidx.savedstate.serialization.SavedStateConfiguration
 import com.feature.home.homeEntryBuilder
 import com.feature.home.homeNavKeySerializers
+import com.quibbly.shared.component.StackersMainAppBar
+import com.quibbly.shared.decorator.rememberTopBarSceneDecoratorStrategy
 import kotlinx.serialization.modules.SerializersModule
 import kotlinx.serialization.modules.polymorphic
 
@@ -38,7 +41,18 @@ internal fun StackersNavigation(
     modifier: Modifier = Modifier,
 ) {
     SharedTransitionLayout {
-        val scrollBehavior = TopAppBarDefaults.pinnedScrollBehavior()
+        val scrollBehavior = TopAppBarDefaults.exitUntilCollapsedScrollBehavior()
+
+        val topBarSceneDecoratorStrategy =
+            rememberTopBarSceneDecoratorStrategy<NavKey>(
+                topBar = {
+                    StackersMainAppBar(
+                        modifier = Modifier.fillMaxWidth(),
+                        scrollBehavior = scrollBehavior,
+                    )
+                },
+                sharedTransitionScope = this
+            )
 
         val listDetailSceneStrategy = rememberListDetailSceneStrategy<NavKey>()
 
@@ -48,7 +62,7 @@ internal fun StackersNavigation(
             onBack = onBack,
             sharedTransitionScope = this@SharedTransitionLayout,
             sceneStrategies = listOf(SinglePaneSceneStrategy(), listDetailSceneStrategy),
-            sceneDecoratorStrategies = listOf(),
+            sceneDecoratorStrategies = listOf(topBarSceneDecoratorStrategy),
             entryDecorators = listOf(
                 rememberSaveableStateHolderNavEntryDecorator(),
                 rememberViewModelStoreNavEntryDecorator()

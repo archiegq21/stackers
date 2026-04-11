@@ -79,5 +79,5 @@ dependencies {
 compose.resources {
     packageOfResClass = "com.core.designsystem"
     generateResClass = always
-    publicResClass = false
+    publicResClass = true
 }
