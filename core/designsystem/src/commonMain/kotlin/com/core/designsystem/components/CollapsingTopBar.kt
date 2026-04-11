@@ -17,6 +17,7 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.RowScope
 import androidx.compose.foundation.layout.WindowInsets
 import androidx.compose.foundation.layout.WindowInsetsSides
+import androidx.compose.foundation.layout.displayCutout
 import androidx.compose.foundation.layout.navigationBars
 import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.only
@@ -165,6 +166,7 @@ fun CollapsingTopBar(
                         }
                         .layoutId(Slots.TopStart)
                         .windowInsetsPadding(WindowInsets.navigationBars.only(WindowInsetsSides.Start))
+                        .windowInsetsPadding(WindowInsets.displayCutout.only(WindowInsetsSides.Start))
                         .adjustHeightOffsetLimit(scrollBehavior),
                     content = { topStart() },
                 )
@@ -176,7 +178,8 @@ fun CollapsingTopBar(
                             .wrapContentSize()
                             .padding(end = 16.dp)
                             .layoutId(Slots.Actions)
-                            .windowInsetsPadding(WindowInsets.navigationBars.only(WindowInsetsSides.Right)),
+                            .windowInsetsPadding(WindowInsets.navigationBars.only(WindowInsetsSides.Right))
+                            .windowInsetsPadding(WindowInsets.displayCutout.only(WindowInsetsSides.Right)),
                         horizontalArrangement = Arrangement.spacedBy(8.dp),
                         verticalAlignment = Alignment.CenterVertically,
                         content = actions,
@@ -193,6 +196,7 @@ fun CollapsingTopBar(
                             )
                         }
                         .windowInsetsPadding(WindowInsets.navigationBars.only(WindowInsetsSides.Horizontal))
+                        .windowInsetsPadding(WindowInsets.displayCutout.only(WindowInsetsSides.Horizontal))
                         .layoutId(Slots.ContainerBar),
                     content = { containerBar() },
                 )
