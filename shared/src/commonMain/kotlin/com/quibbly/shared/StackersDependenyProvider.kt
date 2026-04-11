@@ -3,6 +3,7 @@ package com.quibbly.shared
 import androidx.compose.runtime.Composable
 import co.touchlab.kermit.Logger
 import co.touchlab.kermit.koin.KermitKoinLogger
+import com.core.network.di.networkModule
 import com.feature.home.di.homeModule
 import org.koin.compose.KoinApplication
 import org.koin.core.annotation.KoinExperimentalAPI
@@ -25,6 +26,7 @@ internal fun StackersDependencyProvider(
 private val declaration: KoinAppDeclaration = {
     logger(KermitKoinLogger(Logger.withTag("koin")))
     modules(
+        networkModule,
         homeModule,
     )
 }

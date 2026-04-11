@@ -28,6 +28,7 @@ includeBuild("build-logic")
 include(
     ":apps:stackers:androidApp",
     ":core:designsystem",
+    ":core:network",
     ":feature:home",
     ":feature:api:home",
     ":shared",
