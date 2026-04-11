@@ -45,13 +45,15 @@ kotlin {
     sourceSets {
         commonMain.dependencies {
             implementation(projects.core.designsystem)
-//            implementation(projects.core.database)
-//            implementation(projects.library.paging)
-//            implementation(projects.library.placeholder)
+            implementation(projects.core.user)
+            implementation(projects.core.database)
+            implementation(projects.library.paging)
+            implementation(projects.library.placeholder)
 
             api(projects.feature.api.home)
 
-//            implementation(libs.paging.common)
+            implementation(libs.paging.common)
+            implementation(libs.kotlinx.datetime)
 
             implementation(project.dependencies.platform(libs.koin.bom))
             implementation(libs.koin.core)

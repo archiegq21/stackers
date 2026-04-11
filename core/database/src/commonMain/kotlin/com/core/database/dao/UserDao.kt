@@ -19,7 +19,7 @@ interface UserDao {
     @Query("SELECT * FROM UserEntity WHERE userId = :userId")
     suspend fun getUserById(userId: String): UserEntity?
 
-    @Query("SELECT * FROM UserEntity ORDER BY displayName ASC")
+    @Query("SELECT * FROM UserEntity ORDER BY creationDate DESC")
     fun userPagingSource(): PagingSource<Int, UserEntity>
 
     @Delete

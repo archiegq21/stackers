@@ -49,6 +49,9 @@ kotlin {
             api(projects.library.paging)
 
             api(libs.paging.common)
+            api(libs.kotlinx.datetime)
+            implementation(libs.kotlinx.serialization.core)
+            implementation(libs.kotlinx.serialization.json)
 
             implementation(project.dependencies.platform(libs.koin.bom))
             implementation(libs.koin.core)
@@ -65,7 +68,7 @@ dependencies {
 }
 
 compose.resources {
-    packageOfResClass = "com.core.designsystem"
+    packageOfResClass = "com.core.user"
     generateResClass = always
     publicResClass = false
 }

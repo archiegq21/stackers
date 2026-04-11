@@ -52,7 +52,7 @@ data object Network {
         }
         install(Logging) {
             logger = NetworkLogger
-            level = if (NetworkConfig.IS_DEBUG) LogLevel.NONE else LogLevel.ALL
+            level = if (!NetworkConfig.IS_DEBUG) LogLevel.NONE else LogLevel.ALL
         }
         expectSuccess = true
     }

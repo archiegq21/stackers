@@ -10,6 +10,7 @@ import com.core.database.dao.UserRemoteKeyDao
 import com.core.database.data.UserEntity
 import com.core.database.data.UserRemoteKeyEntity
 import com.core.database.util.InstantConverter
+import com.core.database.util.ListConverters
 
 @Database(
     entities = [
@@ -18,7 +19,7 @@ import com.core.database.util.InstantConverter
     ],
     version = 1,
 )
-@TypeConverters(InstantConverter::class)
+@TypeConverters(InstantConverter::class, ListConverters::class)
 @ConstructedBy(AppDatabaseConstructor::class)
 abstract class AppDatabase : RoomDatabase() {
     abstract fun userDao(): UserDao

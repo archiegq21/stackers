@@ -63,6 +63,7 @@ kotlin {
             implementation(libs.androidx.room.paging)
             implementation(libs.androidx.sqlite.bundled)
             implementation(libs.kotlinx.serialization.core)
+            implementation(libs.kotlinx.serialization.json)
 
             implementation(libs.kotlinx.datetime)
 

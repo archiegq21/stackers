@@ -17,6 +17,7 @@ interface UserService {
         max: Int? = null,
         sort: Sort? = null,
         inName: String? = null,
+        site: String = "stackoverflow",
     ): Users
 
 }

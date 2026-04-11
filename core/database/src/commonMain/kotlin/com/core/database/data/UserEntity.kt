@@ -14,7 +14,7 @@ data class UserEntity(
     val age: Int?,
     val answerCount: Int?,
     @Embedded val badgeCounts: BadgeCountEntity,
-    @Embedded val collectives: List<CollectiveMembershipEntity>,
+    val collectives: List<CollectiveMembershipEntity>,
     val creationDate: Instant,
     val displayName: String,
     val downVoteCount: Int,

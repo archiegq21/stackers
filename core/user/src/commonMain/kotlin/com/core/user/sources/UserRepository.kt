@@ -10,7 +10,7 @@ interface UserRepository {
     fun getStoredPagedUser(
         source: String,
         config: PagingConfig,
-        initialKey: Int?,
+        initialKey: Int? = null,
     ): Flow<PagingData<User>>
 
 }
