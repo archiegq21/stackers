@@ -52,8 +52,8 @@ class SearchViewModel(
                 searchRepository.getSearchPagedUser(
                     search = keyword,
                     config = PagingConfig(
-                        initialLoadSize = 300,
-                        pageSize = 100,
+                        initialLoadSize = 20,
+                        pageSize = 10,
                         prefetchDistance = 5,
                     ),
                 ).map { it.map(::toUserUiModel) }

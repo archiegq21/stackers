@@ -1,7 +1,7 @@
 package com.core.user.data
 
 import com.core.database.data.UserType
-import kotlinx.datetime.Instant
+import kotlin.time.Instant
 
 data class User(
     val aboutMe: String?,
