@@ -87,7 +87,7 @@ internal fun UserHeader(
         val displayDate = rememberDisplayDate(uiModel.memberSince)
         Text(
             text = buildAnnotatedString {
-                appendInlineContent(BIRTHDAY_ID, "Birthday")
+                appendInlineContent(BIRTHDAY_ID, "Creation Date")
                 append(" ")
                 append(stringResource(Res.string.member_since))
                 append(" ")

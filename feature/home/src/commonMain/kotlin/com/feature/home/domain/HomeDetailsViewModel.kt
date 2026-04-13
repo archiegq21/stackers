@@ -1,12 +1,10 @@
 package com.feature.home.domain
 
-import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.core.user.data.User
 import com.core.user.data.UserDetailsUiModel
 import com.core.user.sources.UserRepository
-import com.feature.api.home.HomeDetailsNavKey
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.stateIn
@@ -14,8 +12,8 @@ import kotlinx.datetime.TimeZone
 import kotlinx.datetime.toLocalDateTime
 
 internal class HomeDetailsViewModel(
-    private val userId: String,
-    private val userRepository: UserRepository,
+    userId: String,
+    userRepository: UserRepository,
 ) : ViewModel() {
 
     val uiModelFlow = userRepository.getUser(userId)

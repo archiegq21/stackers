@@ -50,6 +50,7 @@ kotlin {
             implementation(projects.core.network)
             implementation(projects.core.user)
             implementation(projects.feature.home)
+            implementation(projects.feature.search)
 
             implementation(project.dependencies.platform(libs.koin.bom))
             implementation(libs.koin.core)

@@ -32,6 +32,7 @@ datetime = "0.7.1"
 kermit = "2.1.0"
 paging = "3.4.2"
 richeditor = "1.0.0-rc13"
+mockkery = "3.3.0"
 
 [libraries]
 # Android
@@ -120,3 +121,4 @@ spm4kmm = { id = "io.github.frankois944.spmForKmp", version.ref = "spm" }
 buildconfig = { id = "com.codingfeline.buildkonfig", version.ref = "buildkonfig" }
 androidx-room = { id = "androidx.room", version.ref = "room" }
 ksp = { id = "com.google.devtools.ksp", version.ref = "ksp" }
+mockkery = { id = "dev.mokkery", version.ref = "mockkery" }

@@ -8,13 +8,14 @@ plugins {
     alias(libs.plugins.compose.compiler)
     alias(libs.plugins.serialization)
     alias(libs.plugins.spm4kmm)
-    alias(libs.plugins.mockkery)
     id("com.quibbly.stackers.kmp")
 }
 
 kotlin {
+    jvmToolchain(libs.versions.jvm.target.get().toInt())
+
     android {
-        namespace = "com.core.user"
+        namespace = "com.feature.api.search"
         compileSdk = libs.versions.android.compileSdk.get().toInt()
         minSdk = libs.versions.android.minSdk.get().toInt()
 
@@ -32,49 +33,37 @@ kotlin {
         iosSimulatorArm64()
     ).forEach { iosTarget ->
         iosTarget.binaries.framework {
-            baseName = "user"
+            baseName = "searchapi"
             isStatic = true
         }
         @Suppress("OPT_IN_USAGE")
-        iosTarget.swiftPackageConfig("user") {
+        iosTarget.swiftPackageConfig("searchapi") {
             minIos = libs.versions.ios.target.get()
         }
     }
-    
+
     sourceSets {
         commonMain.dependencies {
-            implementation(projects.core.network)
-            implementation(projects.core.database)
             implementation(projects.core.designsystem)
-            implementation(projects.library.placeholder)
-            api(projects.library.paging)
-
-            api(libs.paging.common)
-            api(libs.kotlinx.datetime)
-
-            implementation(libs.richeditor)
 
             implementation(libs.kotlinx.serialization.core)
             implementation(libs.kotlinx.serialization.json)
 
+            implementation(libs.kotlinx.serialization.core)
+            implementation(libs.navigation3.ui)
+            implementation(libs.lifecycle.viewmodel.navigation3)
+
             implementation(project.dependencies.platform(libs.koin.bom))
             implementation(libs.koin.core)
+            implementation(libs.koin.compose)
+            implementation(libs.koin.compose.viewmodel)
+            implementation(libs.koin.compose.navigation3)
+
+            implementation(libs.navigation3.ui)
+            implementation(libs.lifecycle.viewmodel.navigation3)
         }
         commonTest.dependencies {
-            implementation(libs.compose.ui.test)
             implementation(libs.kotlin.test)
-            implementation(libs.ktor.mock)
-            implementation(libs.kotlinx.coroutines.test)
         }
     }
-}
-
-dependencies {
-    "androidRuntimeClasspath"(libs.compose.preview.tooling)
-}
-
-compose.resources {
-    packageOfResClass = "com.core.user"
-    generateResClass = always
-    publicResClass = true
 }
