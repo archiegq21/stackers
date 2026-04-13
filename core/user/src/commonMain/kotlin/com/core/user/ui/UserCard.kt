@@ -20,6 +20,7 @@ import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.material3.contentColorFor
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -33,6 +34,8 @@ import com.core.user.data.UserUiModel
 import com.core.user.member_since
 import com.core.user.points
 import com.core.user.reputation
+import com.mohamedrejeb.richeditor.model.rememberRichTextState
+import com.mohamedrejeb.richeditor.ui.material3.RichText
 import com.rolengi.nyuza.library.placeholder.shimmer
 import kotlinx.datetime.LocalDate
 import org.jetbrains.compose.resources.stringResource
@@ -45,6 +48,11 @@ fun UserCard(
     enabled: Boolean = true,
     selected: Boolean = false,
 ) {
+    val name = rememberRichTextState()
+    LaunchedEffect(uiModel.name) {
+        name.setHtml(uiModel.name)
+    }
+
     UserCard(
         onClick = onClick,
         modifier = modifier,
@@ -57,7 +65,7 @@ fun UserCard(
                 modifier = Modifier.fillMaxSize(),
             )
         },
-        name = { Text(uiModel.name) },
+        name = { RichText(name) },
         memberSince = {
             val displayDate = rememberDisplayDate(uiModel.memberSince)
             Text(buildString {

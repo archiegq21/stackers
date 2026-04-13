@@ -11,7 +11,7 @@ import kotlinx.coroutines.flow.stateIn
 import kotlinx.datetime.TimeZone
 import kotlinx.datetime.toLocalDateTime
 
-internal class HomeDetailsViewModel(
+class HomeDetailsViewModel(
     userId: String,
     userRepository: UserRepository,
 ) : ViewModel() {

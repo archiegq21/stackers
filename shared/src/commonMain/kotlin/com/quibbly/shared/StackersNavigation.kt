@@ -24,10 +24,16 @@ import androidx.navigation3.runtime.rememberSaveableStateHolderNavEntryDecorator
 import androidx.navigation3.scene.SinglePaneSceneStrategy
 import androidx.navigation3.ui.NavDisplay
 import androidx.savedstate.serialization.SavedStateConfiguration
+import com.core.designsystem.decorator.LocalSearchBarTextFieldState
+import com.core.designsystem.decorator.rememberSearchBarSceneDecoratorStrategy
 import com.feature.home.homeEntryBuilder
 import com.feature.home.homeNavKeySerializers
 import com.quibbly.shared.component.StackersMainAppBar
 import com.core.designsystem.decorator.rememberTopBarSceneDecoratorStrategy
+import com.feature.api.search.SearchNavKey
+import com.feature.search.searchEntryBuilder
+import com.feature.search.searchNavKeySerializers
+import com.quibbly.shared.component.SearchAppBar
 import kotlinx.serialization.modules.SerializersModule
 import kotlinx.serialization.modules.polymorphic
 
@@ -36,6 +42,7 @@ internal val Config = SavedStateConfiguration {
     serializersModule = SerializersModule {
         polymorphic(NavKey::class) {
             homeNavKeySerializers()
+            searchNavKeySerializers()
         }
     }
 }
@@ -62,6 +69,19 @@ internal fun StackersNavigation(
                 sharedTransitionScope = this
             )
 
+        val searchBarSceneDecoratorStrategy =
+            rememberSearchBarSceneDecoratorStrategy<NavKey>(
+                topBar = {
+                    SearchAppBar(
+                        state = LocalSearchBarTextFieldState.current,
+                        navBackStack = backStack,
+                        modifier = Modifier.fillMaxWidth(),
+                        scrollBehavior = scrollBehavior,
+                    )
+                },
+                sharedTransitionScope = this
+            )
+
         val windowAdaptiveInfo = currentWindowAdaptiveInfo()
         val directive = remember(windowAdaptiveInfo) {
             calculatePaneScaffoldDirective(windowAdaptiveInfo)
@@ -80,14 +100,21 @@ internal fun StackersNavigation(
             backStack = backStack,
             onBack = onBack,
             sharedTransitionScope = this@SharedTransitionLayout,
-            sceneStrategies = listOf(listDetailSceneStrategy, SinglePaneSceneStrategy()),
-            sceneDecoratorStrategies = listOf(topBarSceneDecoratorStrategy),
+            sceneStrategies = listOf(
+                listDetailSceneStrategy,
+                SinglePaneSceneStrategy()
+            ),
+            sceneDecoratorStrategies = listOf(
+                topBarSceneDecoratorStrategy,
+                searchBarSceneDecoratorStrategy,
+            ),
             entryDecorators = listOf(
                 rememberSaveableStateHolderNavEntryDecorator(),
-                rememberViewModelStoreNavEntryDecorator()
+                rememberViewModelStoreNavEntryDecorator(),
             ),
             entryProvider = entryProvider {
                 homeEntryBuilder(backStack)
+                searchEntryBuilder(backStack)
             }
         )
     }

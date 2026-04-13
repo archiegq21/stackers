@@ -8,6 +8,8 @@ import androidx.compose.animation.shrinkHorizontally
 import androidx.compose.animation.slideInHorizontally
 import androidx.compose.animation.slideOutHorizontally
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.focusable
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -43,6 +45,7 @@ import com.core.designsystem.icon.filled.ArrowBack
 import com.core.designsystem.icon.filled.MoreVert
 import com.core.designsystem.icon.filled.Search
 import com.core.user.search_users
+import com.feature.api.search.SearchNavKey
 import org.jetbrains.compose.resources.stringResource
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -59,11 +62,7 @@ internal fun StackersMainAppBar(
                 enter = fadeIn() + slideInHorizontally { -it } + expandHorizontally(),
                 exit = fadeOut() + slideOutHorizontally { -it } + shrinkHorizontally(),
             ) {
-                IconButton(
-                    onClick = {
-                        navBackStack.removeLastOrNull()
-                    },
-                ) {
+                IconButton(onClick = { navBackStack.removeLastOrNull() },) {
                     Icon(
                         modifier = Modifier.size(24.dp),
                         imageVector = StackersIcons.Filled.ArrowBack,
@@ -74,11 +73,7 @@ internal fun StackersMainAppBar(
             }
         },
         actions = {
-            IconButton(
-                onClick = {
-
-                },
-            ) {
+            IconButton(onClick = {}) {
                 Icon(
                     modifier = Modifier.size(24.dp),
                     imageVector = StackersIcons.Filled.MoreVert,
@@ -101,41 +96,17 @@ internal fun StackersMainAppBar(
             }
         },
         containerBar = {
-            Row(
-                modifier = Modifier.padding(horizontal = 16.dp, vertical = 8.dp),
-                verticalAlignment = Alignment.CenterVertically,
-            ) {
-                OutlinedTextField(
+            Box(Modifier.padding(horizontal = 16.dp, vertical = 8.dp)) {
+                SearchTextField(
                     state = rememberTextFieldState(""),
                     readOnly = true,
-                    lineLimits = TextFieldLineLimits.SingleLine,
-                    placeholder = {
-                        Text(
-                            text = stringResource(com.core.user.Res.string.search_users),
-                            maxLines = 1,
-                            overflow = TextOverflow.Ellipsis,
-                        )
-                    },
-                    shape = CircleShape,
-                    trailingIcon = {
-                        IconButton(
-                            onClick = {
-
-                            },
-                        ) {
-                            Icon(
-                                modifier = Modifier.size(24.dp),
-                                imageVector = StackersIcons.Filled.Search,
-                                contentDescription = null,
-                            )
-                        }
-                    },
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .clickable {
-                            println("helo")
-                        }
+                    modifier = Modifier.fillMaxWidth()
                 )
+                Box(Modifier.matchParentSize().clickable(
+                    interactionSource = null,
+                    indication = null,
+                    onClick = { navBackStack.add(SearchNavKey) }
+                ))
             }
         },
         modifier = modifier,

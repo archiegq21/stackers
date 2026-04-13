@@ -11,6 +11,11 @@
     <string name="empty_user_title">User seems to be missing..</string>
     <string name="empty_user_subtitle">Maybe select a different user?</string>
 
+    <string name="error_fetching_user">Im having issues fetching the users..</string>
+    <string name="error_fetching_user_retry">Retry</string>
+
+    <string name="empty_user_list">Looks like we don't have users...</string>
+
     <string name="gold_badge">Gold Badges</string>
     <string name="silver_badge">Silver Badges</string>
     <string name="bronze_badge">Bronze Badges</string>

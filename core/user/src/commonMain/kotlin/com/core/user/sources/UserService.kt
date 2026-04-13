@@ -2,6 +2,7 @@ package com.core.user.sources
 
 import com.core.user.data.Order
 import com.core.user.data.Sort
+import com.core.user.data.UserData
 import com.core.user.data.Users
 import kotlin.time.Instant
 
@@ -19,5 +20,10 @@ interface UserService {
         inName: String? = null,
         site: String = "stackoverflow",
     ): Users
+
+    suspend fun fetchUser(
+        id: String,
+        site: String = "stackoverflow",
+    ): UserData?
 
 }

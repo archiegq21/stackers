@@ -7,6 +7,7 @@ import com.core.database.di.databaseModule
 import com.core.network.di.networkModule
 import com.core.user.di.userModule
 import com.feature.home.di.homeModule
+import com.feature.search.di.searchModule
 import org.koin.compose.KoinApplication
 import org.koin.core.annotation.KoinExperimentalAPI
 import org.koin.core.logger.Level
@@ -32,5 +33,6 @@ private val declaration: KoinAppDeclaration = {
         databaseModule,
         userModule,
         homeModule,
+        searchModule,
     )
 }
