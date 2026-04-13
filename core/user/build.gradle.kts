@@ -65,6 +65,7 @@ kotlin {
             implementation(libs.kotlin.test)
             implementation(libs.ktor.mock)
             implementation(libs.kotlinx.coroutines.test)
+            implementation(libs.turbine)
         }
     }
 }

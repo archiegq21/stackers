@@ -12,12 +12,9 @@ import com.core.user.data.CollectiveMembership
 import com.core.user.data.CollectiveMembershipData
 import com.core.user.data.ExternalLink
 import com.core.user.data.ExternalLinkData
-import com.core.user.data.Order
-import com.core.user.data.Sort
 import com.core.user.data.User
 import com.core.user.data.UserData
 import com.core.user.sources.UserService
-import com.feature.search.sources.SearchUserPagingSource
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
 import kotlin.time.Instant

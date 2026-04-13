@@ -8,6 +8,7 @@ plugins {
     alias(libs.plugins.compose.compiler)
     alias(libs.plugins.serialization)
     alias(libs.plugins.spm4kmm)
+    alias(libs.plugins.mockkery)
     id("com.quibbly.stackers.kmp")
 }
 
@@ -70,6 +71,8 @@ kotlin {
         }
         commonTest.dependencies {
             implementation(libs.compose.ui.test)
+            implementation(libs.turbine)
+            implementation(libs.kotlinx.coroutines.test)
             implementation(libs.kotlin.test)
         }
         iosMain.dependencies {
