@@ -9,8 +9,8 @@ Stackers is a modern Kotlin Multiplatform (KMP) application designed to browse a
 |:----------------------------------------------:|:------------------------------------------:|
 |  <img src="./docs/android.gif" width="50%" />  |  <img src="./docs/ios.gif" width="50%" />  |
 
-ey Features
-• User Discovery: Browse a paginated list of Stack Overflow users directly from the home screen.
-• Advanced Search: Search for specific users by name with real-time results, utilizing debouncing and distinct filtering to optimize API usage.
-• Detailed Profiles: View comprehensive user information, including reputation, badge counts (gold, silver, bronze), account age, and location.
-• Offline Support: Integrated with Room and Paging3 (RemoteMediator) to provide a seamless offline-first experience, caching user data locally for instant access.
+### Key Features
+- User Discovery: Browse a paginated list of Stack Overflow users directly from the home screen.
+- Advanced Search: Search for specific users by name with real-time results, utilizing debouncing and distinct filtering to optimize API usage.
+- Detailed Profiles: View comprehensive user information, including reputation, badge counts (gold, silver, bronze), account age, and location.
+- Offline Support: Integrated with Room and Paging3 (RemoteMediator) to provide a seamless offline-first experience, caching user data locally for instant access.
