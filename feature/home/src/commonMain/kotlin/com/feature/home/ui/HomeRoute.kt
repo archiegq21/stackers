@@ -23,6 +23,8 @@ import org.koin.compose.viewmodel.koinViewModel
 
 @Composable
 internal fun HomeRoute(
+    selectedUserId: String? = null,
+    onUserClick: (UserUiModel) -> Unit,
     viewModel: HomeViewModel = koinViewModel(),
     modifier: Modifier = Modifier,
 ) {
@@ -33,9 +35,7 @@ internal fun HomeRoute(
         verticalArrangement = Arrangement.spacedBy(16.dp),
         horizontalArrangement = Arrangement.spacedBy(16.dp),
         userScrollEnabled = usersPagingItems.itemCount >= 1,
-        modifier = modifier
-            .background(MaterialTheme.colorScheme.background)
-            .fillMaxSize(),
+        modifier = modifier.fillMaxSize(),
     ) {
         if (usersPagingItems.loadState.refresh is LoadState.Loading && usersPagingItems.itemCount == 0) {
             loadingVideoItems(count = 30)
@@ -46,8 +46,9 @@ internal fun HomeRoute(
             placeholder = { LoadingUserCard() }
         ) { uiModel ->
             UserCard(
+                selected = uiModel.id == selectedUserId,
                 uiModel = uiModel,
-                onClick = { /* Handle click */ }
+                onClick = { onUserClick(uiModel) }
             )
         }
         if (usersPagingItems.loadState.append is LoadState.Loading && usersPagingItems.itemCount != 0) {

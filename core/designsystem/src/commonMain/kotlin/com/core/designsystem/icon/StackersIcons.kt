@@ -6,4 +6,5 @@ object StackersIcons {
 
     object Outlined
 
+    object Hero
 }

@@ -62,6 +62,7 @@ kotlin {
             implementation(libs.koin.compose.navigation3)
 
             implementation(libs.navigation3.ui)
+            implementation(libs.navigation3.adaptive)
             implementation(libs.lifecycle.viewmodel.navigation3)
         }
         commonTest.dependencies {

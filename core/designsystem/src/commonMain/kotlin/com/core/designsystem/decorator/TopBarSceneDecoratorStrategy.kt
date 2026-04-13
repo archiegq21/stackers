@@ -1,4 +1,4 @@
-package com.quibbly.shared.decorator
+package com.core.designsystem.decorator
 
 import androidx.compose.animation.EnterExitState
 import androidx.compose.animation.SharedTransitionScope
@@ -17,6 +17,7 @@ import androidx.navigation3.scene.SceneDecoratorStrategy
 import androidx.navigation3.scene.SceneDecoratorStrategyScope
 import androidx.navigation3.ui.LocalNavAnimatedContentScope
 import com.core.designsystem.utility.cacheSize
+import kotlin.collections.contains
 
 class MainTopBarSceneDecoratorStrategy<T : Any>(
     private val sharedTransitionScope: SharedTransitionScope,
@@ -24,7 +25,8 @@ class MainTopBarSceneDecoratorStrategy<T : Any>(
 ) : SceneDecoratorStrategy<T> {
 
     override fun SceneDecoratorStrategyScope<T>.decorateScene(scene: Scene<T>): Scene<T> {
-        val showDecorator = true//scene.entries.lastOrNull()?.metadata.
+        val metadata =  scene.entries.lastOrNull()?.metadata
+        val showDecorator = metadata?.contains(IsMainScreenKey) == true && metadata[IsMainScreenKey] == true
 
         return if (showDecorator) {
             TopNavigationScene(
@@ -35,6 +37,14 @@ class MainTopBarSceneDecoratorStrategy<T : Any>(
         } else {
             scene
         }
+    }
+
+    companion object {
+        internal const val IsMainScreenKey: String = "IsMainScreenKey"
+
+        fun mainAppBar(
+            isHome: Boolean,
+        ): Map<String, Any> = mapOf(IsMainScreenKey to isHome)
     }
 
 }

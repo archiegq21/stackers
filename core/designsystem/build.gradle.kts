@@ -58,6 +58,10 @@ kotlin {
             api(libs.window.size)
             api(libs.adaptive)
 
+            implementation(libs.navigation3.ui)
+            implementation(libs.navigation3.adaptive)
+            implementation(libs.lifecycle.viewmodel.navigation3)
+
             api(project.dependencies.platform(libs.coil.bom))
             api(libs.coil.compose)
             implementation(libs.coil.ktor)

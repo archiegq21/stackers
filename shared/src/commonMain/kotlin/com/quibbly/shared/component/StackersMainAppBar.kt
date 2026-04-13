@@ -1,5 +1,12 @@
 package com.quibbly.shared.component
 
+import androidx.compose.animation.AnimatedVisibility
+import androidx.compose.animation.expandHorizontally
+import androidx.compose.animation.fadeIn
+import androidx.compose.animation.fadeOut
+import androidx.compose.animation.shrinkHorizontally
+import androidx.compose.animation.slideInHorizontally
+import androidx.compose.animation.slideOutHorizontally
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -7,6 +14,7 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.text.input.TextFieldLineLimits
 import androidx.compose.foundation.text.input.rememberTextFieldState
@@ -22,12 +30,16 @@ import androidx.compose.material3.contentColorFor
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.focus.focusModifier
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
+import androidx.navigation3.runtime.NavBackStack
+import androidx.navigation3.runtime.NavKey
 import com.core.designsystem.app_name
 import com.core.designsystem.components.CollapsingTopBar
 import com.core.designsystem.components.StackersIcon
 import com.core.designsystem.icon.StackersIcons
+import com.core.designsystem.icon.filled.ArrowBack
 import com.core.designsystem.icon.filled.MoreVert
 import com.core.designsystem.icon.filled.Search
 import com.core.user.search_users
@@ -36,10 +48,31 @@ import org.jetbrains.compose.resources.stringResource
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 internal fun StackersMainAppBar(
+    navBackStack: NavBackStack<NavKey>,
     modifier: Modifier = Modifier,
     scrollBehavior: TopAppBarScrollBehavior? = null,
 ) {
     CollapsingTopBar(
+        navigationIcon = {
+            AnimatedVisibility(
+                visible = navBackStack.size > 1,
+                enter = fadeIn() + slideInHorizontally { -it } + expandHorizontally(),
+                exit = fadeOut() + slideOutHorizontally { -it } + shrinkHorizontally(),
+            ) {
+                IconButton(
+                    onClick = {
+                        navBackStack.removeLastOrNull()
+                    },
+                ) {
+                    Icon(
+                        modifier = Modifier.size(24.dp),
+                        imageVector = StackersIcons.Filled.ArrowBack,
+                        contentDescription = null,
+                    )
+                }
+                Spacer(Modifier.width(8.dp))
+            }
+        },
         actions = {
             IconButton(
                 onClick = {
@@ -68,38 +101,42 @@ internal fun StackersMainAppBar(
             }
         },
         containerBar = {
-            OutlinedTextField(
-                state = rememberTextFieldState(""),
-                readOnly = true,
-                lineLimits = TextFieldLineLimits.SingleLine,
-                placeholder = {
-                    Text(
-                        text = stringResource(com.core.user.Res.string.search_users),
-                        maxLines = 1,
-                        overflow = TextOverflow.Ellipsis,
-                    )
-                },
-                shape = CircleShape,
-                trailingIcon = {
-                    IconButton(
-                        onClick = {
-
-                        },
-                    ) {
-                        Icon(
-                            modifier = Modifier.size(24.dp),
-                            imageVector = StackersIcons.Filled.Search,
-                            contentDescription = null,
+            Row(
+                modifier = Modifier.padding(horizontal = 16.dp, vertical = 8.dp),
+                verticalAlignment = Alignment.CenterVertically,
+            ) {
+                OutlinedTextField(
+                    state = rememberTextFieldState(""),
+                    readOnly = true,
+                    lineLimits = TextFieldLineLimits.SingleLine,
+                    placeholder = {
+                        Text(
+                            text = stringResource(com.core.user.Res.string.search_users),
+                            maxLines = 1,
+                            overflow = TextOverflow.Ellipsis,
                         )
-                    }
-                },
-                modifier = Modifier
-                    .padding(horizontal = 16.dp, vertical = 8.dp)
-                    .fillMaxWidth()
-                    .clickable {
-                        println("helo")
-                    }
-            )
+                    },
+                    shape = CircleShape,
+                    trailingIcon = {
+                        IconButton(
+                            onClick = {
+
+                            },
+                        ) {
+                            Icon(
+                                modifier = Modifier.size(24.dp),
+                                imageVector = StackersIcons.Filled.Search,
+                                contentDescription = null,
+                            )
+                        }
+                    },
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .clickable {
+                            println("helo")
+                        }
+                )
+            }
         },
         modifier = modifier,
         elevation = 0.dp,

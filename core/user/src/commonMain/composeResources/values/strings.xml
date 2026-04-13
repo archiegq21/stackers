@@ -4,4 +4,10 @@
     <string name="points">pts</string>
 
     <string name="search_users">Search users...</string>
+
+    <string name="select_user_title">Select a User</string>
+    <string name="select_user_subtitle">Waiting...</string>
+
+    <string name="empty_user_title">User seems to be missing..</string>
+    <string name="empty_user_subtitle">Maybe select a different user?</string>
 </resources>

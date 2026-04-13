@@ -13,6 +13,7 @@ import androidx.compose.foundation.gestures.draggable
 import androidx.compose.foundation.gestures.rememberDraggableState
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.BoxScope
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.RowScope
 import androidx.compose.foundation.layout.WindowInsets
@@ -61,6 +62,7 @@ import kotlin.math.roundToInt
 private enum class Slots {
     Insets,
     Banner,
+    NavigationIcon,
     Actions,
     TopStart,
     ContainerBar,
@@ -70,6 +72,7 @@ private enum class Slots {
 @Composable
 fun CollapsingTopBar(
     banner: (@Composable () -> Unit)? = null,
+    navigationIcon: (@Composable BoxScope.() -> Unit)? = null,
     actions: (@Composable RowScope.() -> Unit)? = null,
     topStart: @Composable () -> Unit,
     containerBar: @Composable () -> Unit,
@@ -149,6 +152,17 @@ fun CollapsingTopBar(
             CompositionLocalProvider(LocalContentColor provides colors.navigationIconContentColor) {
                 Box(
                     modifier = Modifier
+                        .wrapContentSize()
+                        .layoutId(Slots.NavigationIcon)
+                        .windowInsetsPadding(WindowInsets.navigationBars.only(WindowInsetsSides.Right))
+                        .windowInsetsPadding(WindowInsets.displayCutout.only(WindowInsetsSides.Right)),
+                    contentAlignment = Alignment.Center,
+                    content = { navigationIcon?.invoke(this) },
+                )
+            }
+            CompositionLocalProvider(LocalContentColor provides colors.navigationIconContentColor) {
+                Box(
+                    modifier = Modifier
                         .graphicsLayer {
                             alpha = lerp(
                                 1f,
@@ -165,26 +179,23 @@ fun CollapsingTopBar(
                             if (hideSemantics) hideFromAccessibility()
                         }
                         .layoutId(Slots.TopStart)
-                        .windowInsetsPadding(WindowInsets.navigationBars.only(WindowInsetsSides.Start))
-                        .windowInsetsPadding(WindowInsets.displayCutout.only(WindowInsetsSides.Start))
                         .adjustHeightOffsetLimit(scrollBehavior),
                     content = { topStart() },
                 )
             }
-            actions?.let {
-                CompositionLocalProvider(LocalContentColor provides colors.actionIconContentColor) {
-                    Row(
-                        modifier = Modifier
-                            .wrapContentSize()
-                            .padding(end = 16.dp)
-                            .layoutId(Slots.Actions)
-                            .windowInsetsPadding(WindowInsets.navigationBars.only(WindowInsetsSides.Right))
-                            .windowInsetsPadding(WindowInsets.displayCutout.only(WindowInsetsSides.Right)),
-                        horizontalArrangement = Arrangement.spacedBy(8.dp),
-                        verticalAlignment = Alignment.CenterVertically,
-                        content = actions,
-                    )
-                }
+
+            CompositionLocalProvider(LocalContentColor provides colors.actionIconContentColor) {
+                Row(
+                    modifier = Modifier
+                        .wrapContentSize()
+                        .padding(end = 16.dp)
+                        .layoutId(Slots.Actions)
+                        .windowInsetsPadding(WindowInsets.navigationBars.only(WindowInsetsSides.Right))
+                        .windowInsetsPadding(WindowInsets.displayCutout.only(WindowInsetsSides.Right)),
+                    horizontalArrangement = Arrangement.spacedBy(8.dp),
+                    verticalAlignment = Alignment.CenterVertically,
+                    content = { actions?.invoke(this) },
+                )
             }
             CompositionLocalProvider(LocalContentColor provides colors.subtitleContentColor) {
                 Box(
@@ -195,8 +206,6 @@ fun CollapsingTopBar(
                                 y = (scrollBehavior?.state?.heightOffset?.roundToInt() ?: 0)
                             )
                         }
-                        .windowInsetsPadding(WindowInsets.navigationBars.only(WindowInsetsSides.Horizontal))
-                        .windowInsetsPadding(WindowInsets.displayCutout.only(WindowInsetsSides.Horizontal))
                         .layoutId(Slots.ContainerBar),
                     content = { containerBar() },
                 )
@@ -220,9 +229,13 @@ fun CollapsingTopBar(
         val bannerPlaceables = measurables.firstOrNull { it.layoutId == Slots.Banner }
             ?.measure(constraints.copy(minHeight = 0))
 
+        val navIconPlaceables = measurables.firstOrNull { it.layoutId == Slots.NavigationIcon }
+            ?.measure(constraints.copy(minWidth = 0, minHeight = 0))
+
         val actionsPlaceable = measurables.firstOrNull { it.layoutId == Slots.Actions }
             ?.measure(constraints.copy(minWidth = 0, minHeight = 0))
-        val iconsRowRemainingWidth = constraints.maxWidth - (actionsPlaceable?.width ?: 0)
+        val iconsRowRemainingWidth = (constraints.maxWidth - (actionsPlaceable?.width ?: 0) - (navIconPlaceables?.width ?: 0))
+            .coerceAtLeast(0)
 
         val topStartPlaceable = measurables.firstOrNull { it.layoutId == Slots.TopStart }
             ?.measure(constraints.copy(minWidth = 0, maxWidth = iconsRowRemainingWidth))
@@ -236,7 +249,7 @@ fun CollapsingTopBar(
         val topContentHeight =
             maxOf(insetsPlaceable?.height ?: 0, bannerPlaceables?.height ?: 0)
         val middleContentHeight =
-            maxOf(actionsPlaceable?.height ?: 0, topStartPlaceable?.height ?: 0)
+            maxOf(actionsPlaceable?.height ?: 0, topStartPlaceable?.height ?: 0, navIconPlaceables?.height ?: 0)
         val bottomContentHeight = containerBarPlaceable?.height ?: 0
 
         val minusHeight = ((scrollBehavior?.state?.collapsedFraction
@@ -252,13 +265,28 @@ fun CollapsingTopBar(
             fraction = FastOutLinearInEasing.transform(collapseFraction),
         )
 
+        val navIconCenter = (navIconPlaceables?.height ?: 0)
+        val navIconsY = lerp(
+            start = (middleContentHeight - navIconCenter) / 2,
+            stop = (bottomContentHeight - navIconCenter) / 2,
+            fraction = FastOutLinearInEasing.transform(collapseFraction),
+        )
+
+        val searchBarX =
+            lerp(0, (navIconPlaceables?.width ?: 0), FastOutLinearInEasing.transform(collapseFraction))
+
         layout(width, height) {
             insetsPlaceable?.place(0, 0)
             bannerPlaceables?.place(0, 0, zIndex = 1f)
 
             topStartPlaceable?.place(
-                x = if (collapseFraction >= 1f) -topStartPlaceable.width else 0,
+                x = if (collapseFraction >= 1f) -topStartPlaceable.width else (navIconPlaceables?.width ?: 0),
                 y = topContentHeight,
+            )
+
+            navIconPlaceables?.place(
+                x = 0,
+                y = topContentHeight + navIconsY,
             )
 
             actionsPlaceable?.place(
@@ -267,7 +295,7 @@ fun CollapsingTopBar(
             )
 
             containerBarPlaceable?.place(
-                x = 0,
+                x = searchBarX,
                 y = topContentHeight + middleContentHeight,
             )
         }

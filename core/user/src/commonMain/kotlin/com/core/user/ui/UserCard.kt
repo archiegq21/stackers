@@ -1,5 +1,6 @@
 package com.core.user.ui
 
+import androidx.compose.animation.core.animateDpAsState
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -19,6 +20,7 @@ import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.material3.contentColorFor
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -140,12 +142,14 @@ private fun UserCard(
     onClick: () -> Unit,
     modifier: Modifier = Modifier,
     enabled: Boolean = true,
-    selected: Boolean = false,
+    selected: Boolean = true,
     image: @Composable () -> Unit,
     name: @Composable () -> Unit,
     memberSince: @Composable () -> Unit,
     reputation: @Composable () -> Unit,
 ) {
+    val elevation by animateDpAsState(if (selected) 2.dp else 0.dp)
+
     Surface(
         selected = selected,
         onClick = onClick,
@@ -153,8 +157,8 @@ private fun UserCard(
         enabled = enabled,
         shape = RoundedCornerShape(16.dp),
         color = MaterialTheme.colorScheme.surface,
-        tonalElevation = 2.dp,
-        shadowElevation = 2.dp,
+        tonalElevation = elevation,
+        shadowElevation = elevation,
     ) {
         Column(
             modifier = Modifier.padding(16.dp),
