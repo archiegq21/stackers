@@ -30,7 +30,7 @@ class SearchUserDetailViewModel(
             try {
                 val user = searchRepository.getUser(userId)!!
                 userState.value = UserState.Success(toUserDetailsUiModel(user))
-            } catch (e: Exception) {
+            } catch (_: Exception) {
                 userState.value = UserState.Error
             }
         }

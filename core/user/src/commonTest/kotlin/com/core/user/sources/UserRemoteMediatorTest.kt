@@ -134,7 +134,7 @@ class UserRemoteMediatorTest {
         assertTrue(result is RemoteMediator.MediatorResult.Success)
         assertTrue(!result.endOfPaginationReached)
 
-        verifySuspend(exactly(1)) { userService.fetchUsers(page = 2, any(), any(), any(), any(), any(), any(), any(), any(), any()) }
+        verifySuspend(exactly(1)) { val _ = userService.fetchUsers(page = 2, any(), any(), any(), any(), any(), any(), any(), any(), any()) }
         verifySuspend(exactly(1)) { userDao.insertAll(any()) }
         verifySuspend(exactly(1)) { remoteKeyDao.insert(any()) }
     }

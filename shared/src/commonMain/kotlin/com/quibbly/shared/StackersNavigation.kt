@@ -26,14 +26,13 @@ import androidx.navigation3.ui.NavDisplay
 import androidx.savedstate.serialization.SavedStateConfiguration
 import com.core.designsystem.decorator.LocalSearchBarTextFieldState
 import com.core.designsystem.decorator.rememberSearchBarSceneDecoratorStrategy
+import com.core.designsystem.decorator.rememberTopBarSceneDecoratorStrategy
 import com.feature.home.homeEntryBuilder
 import com.feature.home.homeNavKeySerializers
-import com.quibbly.shared.component.StackersMainAppBar
-import com.core.designsystem.decorator.rememberTopBarSceneDecoratorStrategy
-import com.feature.api.search.SearchNavKey
 import com.feature.search.searchEntryBuilder
 import com.feature.search.searchNavKeySerializers
 import com.quibbly.shared.component.SearchAppBar
+import com.quibbly.shared.component.StackersMainAppBar
 import kotlinx.serialization.modules.SerializersModule
 import kotlinx.serialization.modules.polymorphic
 

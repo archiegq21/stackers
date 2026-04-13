@@ -17,7 +17,6 @@ import com.core.user.data.CollectiveMembership
 import com.core.user.data.ExternalLink
 import com.core.user.data.User
 import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.filterNotNull
 import kotlinx.coroutines.flow.map
 
 internal class RealUserRepository(
