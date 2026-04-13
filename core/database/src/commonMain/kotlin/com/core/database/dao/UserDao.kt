@@ -7,6 +7,7 @@ import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
 import com.core.database.data.UserEntity
+import kotlinx.coroutines.flow.Flow
 
 @Dao
 interface UserDao {
@@ -17,7 +18,7 @@ interface UserDao {
     suspend fun insertAll(users: List<UserEntity>)
 
     @Query("SELECT * FROM UserEntity WHERE userId = :userId")
-    suspend fun getUserById(userId: String): UserEntity?
+    fun getUserById(userId: String): Flow<UserEntity?>
 
     @Query("SELECT * FROM UserEntity ORDER BY creationDate DESC")
     fun userPagingSource(): PagingSource<Int, UserEntity>

@@ -22,8 +22,6 @@ import androidx.compose.ui.unit.dp
 import com.core.designsystem.icon.EmptyHero
 import com.core.designsystem.icon.StackersIcons
 import com.core.user.Res
-import com.core.user.empty_user_subtitle
-import com.core.user.empty_user_title
 import com.core.user.select_user_subtitle
 import com.core.user.select_user_title
 import org.jetbrains.compose.resources.stringResource

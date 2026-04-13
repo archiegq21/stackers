@@ -16,6 +16,8 @@ import com.core.user.data.Collective
 import com.core.user.data.CollectiveMembership
 import com.core.user.data.ExternalLink
 import com.core.user.data.User
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.filterNotNull
 import kotlinx.coroutines.flow.map
 
 internal class RealUserRepository(
@@ -73,6 +75,10 @@ internal class RealUserRepository(
             viewCount = entity.viewCount,
             websiteUrl = entity.websiteUrl,
         )
+    }
+
+    override fun getUser(id: String): Flow<User?> {
+        return userDao.getUserById(id).map { it?.let(::toUser) }
     }
 
     private fun toBadgeCount(entity: BadgeCountEntity): BadgeCounts {

@@ -50,6 +50,9 @@ kotlin {
 
             api(libs.paging.common)
             api(libs.kotlinx.datetime)
+
+            implementation(libs.richeditor)
+
             implementation(libs.kotlinx.serialization.core)
             implementation(libs.kotlinx.serialization.json)
 

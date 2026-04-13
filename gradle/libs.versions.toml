@@ -31,6 +31,7 @@ immutable-collection = "0.4.0"
 datetime = "0.7.1"
 kermit = "2.1.0"
 paging = "3.4.2"
+richeditor = "1.0.0-rc13"
 
 [libraries]
 # Android
@@ -103,6 +104,8 @@ ktor-mock = { module = "io.ktor:ktor-client-mock", version.ref = "ktor" }
 # Kermit
 kermit = { module = "co.touchlab:kermit", version.ref = "kermit" }
 kermit-koin = { module = "co.touchlab:kermit-koin", version.ref = "kermit" }
+# Markdown
+richeditor = { module = "com.mohamedrejeb.richeditor:richeditor-compose", version.ref = "richeditor" }
 # Plugins
 kmm-gradle-plugin = { module = "org.jetbrains.kotlin:kotlin-gradle-plugin", version.ref = "kotlin" }
 

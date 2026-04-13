@@ -13,4 +13,6 @@ interface UserRepository {
         initialKey: Int? = null,
     ): Flow<PagingData<User>>
 
+    fun getUser(id: String): Flow<User?>
+
 }
