@@ -154,8 +154,8 @@ fun CollapsingTopBar(
                     modifier = Modifier
                         .wrapContentSize()
                         .layoutId(Slots.NavigationIcon)
-                        .windowInsetsPadding(WindowInsets.navigationBars.only(WindowInsetsSides.Right))
-                        .windowInsetsPadding(WindowInsets.displayCutout.only(WindowInsetsSides.Right)),
+                        .windowInsetsPadding(WindowInsets.navigationBars.only(WindowInsetsSides.Left))
+                        .windowInsetsPadding(WindowInsets.displayCutout.only(WindowInsetsSides.Left)),
                     contentAlignment = Alignment.Center,
                     content = { navigationIcon?.invoke(this) },
                 )
@@ -206,7 +206,9 @@ fun CollapsingTopBar(
                                 y = (scrollBehavior?.state?.heightOffset?.roundToInt() ?: 0)
                             )
                         }
-                        .layoutId(Slots.ContainerBar),
+                        .layoutId(Slots.ContainerBar)
+                        .windowInsetsPadding(WindowInsets.navigationBars.only(WindowInsetsSides.Horizontal))
+                        .windowInsetsPadding(WindowInsets.displayCutout.only(WindowInsetsSides.Horizontal)),
                     content = { containerBar() },
                 )
             }

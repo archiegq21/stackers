@@ -1,7 +1,14 @@
 package com.quibbly.shared.component
 
+import androidx.compose.foundation.layout.WindowInsets
+import androidx.compose.foundation.layout.WindowInsetsSides
+import androidx.compose.foundation.layout.add
+import androidx.compose.foundation.layout.displayCutout
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.navigationBars
+import androidx.compose.foundation.layout.only
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.statusBars
 import androidx.compose.foundation.text.input.TextFieldState
 import androidx.compose.foundation.text.input.rememberTextFieldState
 import androidx.compose.material3.ExperimentalMaterial3Api
@@ -52,5 +59,8 @@ internal fun SearchAppBar(
             subtitleContentColor = contentColorFor(MaterialTheme.colorScheme.surface),
         ),
         scrollBehavior = scrollBehavior,
+        windowInsets = WindowInsets.statusBars
+            .add(WindowInsets.navigationBars.only(WindowInsetsSides.Horizontal))
+            .add(WindowInsets.displayCutout.only(WindowInsetsSides.Horizontal))
     )
 }

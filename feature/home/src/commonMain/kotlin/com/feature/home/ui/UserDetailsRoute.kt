@@ -4,7 +4,14 @@ import androidx.compose.animation.AnimatedContent
 import androidx.compose.animation.fadeIn
 import androidx.compose.animation.fadeOut
 import androidx.compose.animation.togetherWith
+import androidx.compose.foundation.layout.WindowInsets
+import androidx.compose.foundation.layout.WindowInsetsSides
+import androidx.compose.foundation.layout.add
+import androidx.compose.foundation.layout.displayCutout
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.navigationBars
+import androidx.compose.foundation.layout.only
+import androidx.compose.foundation.layout.windowInsetsPadding
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
@@ -25,7 +32,12 @@ internal fun UserDetailsRoute(
     AnimatedContent(
         targetState = uiModel,
         transitionSpec = { fadeIn() togetherWith fadeOut() },
-        modifier = Modifier.fillMaxSize(),
+        modifier = Modifier
+            .windowInsetsPadding(
+                WindowInsets.navigationBars.only(WindowInsetsSides.Horizontal)
+                    .add(WindowInsets.displayCutout.only(WindowInsetsSides.Horizontal))
+            )
+            .fillMaxSize(),
     ) { state ->
         if (state == null) {
             return@AnimatedContent
