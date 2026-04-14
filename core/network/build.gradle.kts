@@ -76,10 +76,6 @@ kotlin {
     }
 }
 
-dependencies {
-    "androidRuntimeClasspath"(libs.compose.preview.tooling)
-}
-
 buildkonfig {
     packageName = "com.core.network"
     exposeObjectWithName = "NetworkConfig"

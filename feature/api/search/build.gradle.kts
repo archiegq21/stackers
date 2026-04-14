@@ -70,3 +70,7 @@ kotlin {
         }
     }
 }
+
+dependencies {
+    "androidRuntimeClasspath"(libs.compose.preview.tooling)
+}

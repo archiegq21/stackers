@@ -57,9 +57,8 @@ class SearchViewModel(
                         prefetchDistance = 5,
                     ),
                 ).map { it.map(::toUserUiModel) }
-                    .cachedIn(viewModelScope)
             }
-        }
+        }.cachedIn(viewModelScope)
 
 
     private fun toUserUiModel(user: User): UserUiModel {

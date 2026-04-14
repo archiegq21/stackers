@@ -69,6 +69,16 @@ kotlin {
         commonTest.dependencies {
             implementation(libs.kotlin.test)
             implementation(libs.kotlinx.coroutines.test)
+            implementation(libs.turbine)
+            implementation(libs.ktor.mock)
+            implementation(libs.koin.test)
+            implementation(libs.compose.ui.test)
         }
     }
+}
+
+dependencies {
+    "androidRuntimeClasspath"(libs.compose.preview.tooling)
+//    "androidTestImplementation"("androidx.compose.ui:ui-test-junit4-android:1.10.5")
+//    "debugImplementation"("androidx.compose.ui:ui-test-manifest:1.10.5")
 }
