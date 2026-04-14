@@ -78,6 +78,4 @@ kotlin {
 
 dependencies {
     "androidRuntimeClasspath"(libs.compose.preview.tooling)
-//    "androidTestImplementation"("androidx.compose.ui:ui-test-junit4-android:1.10.5")
-//    "debugImplementation"("androidx.compose.ui:ui-test-manifest:1.10.5")
 }
